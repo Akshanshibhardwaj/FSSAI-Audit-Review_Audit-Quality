@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSSAI Audit Review - Audier Quality</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; }
+        
+        /* Dashboard Cards */
+        .dashboard { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .card { flex: 1; background: #3498db; color: white; padding: 15px; margin: 5px; border-radius: 5px; text-align: center; }
+        .card.green { background: #27ae60; }
+        .card.orange { background: #f39c12; }
+        .card.red { background: #c0392b; }
+        
+        /* Filters */
+        .filters { margin-bottom: 20px; padding: 15px; background: #ecf0f1; border-radius: 5px; display: flex; gap: 15px; align-items: center; }
+        select, button { padding: 8px; border-radius: 4px; border: 1px solid #bdc3c7; }
+        button { background: #2980b9; color: white; border: none; cursor: pointer; }
+        button:hover { background: #1abc9c; }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #2c3e50; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        
+        /* Status Colors */
+        .status-C { color: green; font-weight: bold; } /* Compliant */
+        .status-PC { color: #f39c12; font-weight: bold; } /* Partial */
+        .status-NC { color: red; font-weight: bold; } /* Non-Compliant */
+        .status-NA { color: gray; font-style: italic; } /* Not Applicable */
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>FSSAI Audit Report: Audier Quality</h1>
+    
+    <div class="dashboard">
+        <div class="card">
+            <h3>Total Score</h3>
+            <h2>58 / 76</h2>
+        </div>
+        <div class="card green">
+            <h3>Percentage</h3>
+            <h2>76%</h2>
+        </div>
+        <div class="card orange">
+            <h3>Rating</h3>
+            <h2>Good</h2>
+        </div>
+    </div>
+
+    <div class="filters">
+        <strong>Filter By:</strong>
+        <select id="sectionFilter">
+            <option value="all">All Sections</option>
+            <option value="I - Design & Facilities">I - Design & Facilities</option>
+            <option value="II - Control of Operation">II - Control of Operation</option>
+            <option value="III - Maintenance">III - Maintenance & Sanitation</option>
+            <option value="IV - Personal Hygiene">IV - Personal Hygiene</option>
+            <option value="V - Training">V - Training</option>
+        </select>
+
+        <select id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="C">C (Compliant)</option>
+            <option value="PC">PC (Partial Compliance)</option>
+            <option value="NC">NC (Non-Compliance)</option>
+        </select>
+        
+        <button onclick="applyFilters()">Apply Filter</button>
+    </div>
+
+    <table id="auditTable">
+        <thead>
+            <tr>
+                <th>Item No.</th>
+                <th>Checklist Item</th>
+                <th>Section</th>
+                <th>Score (Obt/Max)</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be populated by JS -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Audit Data based on your input
+    const auditData = [
+        { id: 1, text: "FSSAI license & FSDB displayed",
